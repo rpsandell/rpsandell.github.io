@@ -1,0 +1,95 @@
+/* Hand-written for this static export. Restores the two navigation
+   behaviours that lived in the Wix JavaScript bundle, and nothing else. */
+
+/* Wix's overflow "More" item. Its container is empty -- the overflow logic ran
+   in JS -- so nothing hides behind it. */
+nav li[id$="__more__"], nav [id$="dropWrapper"] { display: none !important; }
+
+/* ---- Desktop RESEARCH drop-down -----------------------------------------
+   The export rebuilds Wix's nested submenu as .rs-submenu (see transform.py).
+   `all: revert` drops every inherited Wix declaration back to the browser
+   default first, so the menu is styled only by the rules below. */
+/* The menu component is a 35px box with overflow:hidden, and Wix positions the
+   <nav> absolutely inside it. The drop-down has to be allowed out of that box. */
+.wixui-dropdown-menu, .HvW69V { overflow: visible !important; }
+
+nav li { position: relative; }
+
+.rs-submenu {
+  all: revert;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 9999;
+  min-width: 262px;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 2px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.14);
+  text-align: left;
+}
+
+nav li:hover > .rs-submenu,
+nav li:focus-within > .rs-submenu { display: block; }
+
+.rs-submenu li {
+  all: revert;
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rs-submenu a {
+  all: revert;
+  display: block;
+  padding: 9px 18px;
+  font-family: poppins, "Poppins", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  letter-spacing: .01em;
+  color: #2b2b2b;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.rs-submenu a:hover { background: #f2f2f2; color: #0050ff; }
+.rs-submenu a:focus-visible { outline: 2px solid #0050ff; outline-offset: -2px; }
+
+/* ---- /projects card grid (rebuilt; see README) -------------------------- */
+.rs-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 8px 20px 60px;
+  font-family: poppins, "Poppins", Helvetica, Arial, sans-serif;
+}
+.rs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 24px 22px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 2px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .15s ease, transform .15s ease;
+}
+.rs-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.10); transform: translateY(-2px); }
+.rs-card:focus-visible { outline: 2px solid #0050ff; outline-offset: 2px; }
+.rs-card-title { font-size: 19px; font-weight: 600; line-height: 1.3; color: #111; }
+.rs-card-desc  { font-size: 14px; line-height: 1.55; color: #4a4a4a; flex: 1; }
+.rs-card-more  { font-size: 13px; font-weight: 600; color: #0050ff; }
+
+/* ---- Mobile -------------------------------------------------------------
+   Keep the RESEARCH sub-pages reachable even with scripting off. */
+.wixui-vertical-menu__submenu { display: block !important; }
+.wixui-vertical-menu__submenu a { padding-left: 28px !important; }
