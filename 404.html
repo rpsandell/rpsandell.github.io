@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found | Ryan Sandell</title>
+<!-- Fully self-contained on purpose: this file is served from arbitrary paths,
+     so it must not depend on relative asset URLs. -->
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #fff; color: #111;
+    font-family: Poppins, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 34rem; padding: 2rem; text-align: center; }
+  .mark { display: inline-block; width: 14px; height: 14px; background: #0050ff; margin-bottom: 1.75rem; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.25; margin: 0 0 .75rem; font-weight: 700; }
+  p { margin: 0 0 1.75rem; color: #4a4a4a; line-height: 1.6; }
+  a.home {
+    display: inline-block; padding: .7rem 1.6rem; border-radius: 999px;
+    background: #0050ff; color: #fff; text-decoration: none; font-size: .95rem; font-weight: 500;
+  }
+  a.home:hover { background: #0040cc; }
+  a.home:focus-visible { outline: 2px solid #0050ff; outline-offset: 3px; }
+</style>
+</head>
+<body>
+  <main>
+    <span class="mark" aria-hidden="true"></span>
+    <h1>That page doesn&rsquo;t exist</h1>
+    <p>The link may be out of date, or the page may have moved when this site was rebuilt.</p>
+    <a class="home" href="/">Back to the homepage</a>
+  </main>
+</body>
+</html>
