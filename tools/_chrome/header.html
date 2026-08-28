@@ -1,0 +1,47 @@
+	<!-- ============================================================
+	     SHARED HEADER  —  identical on every page.
+	     Edit tools/_chrome/header.html and run tools/sync-chrome.py
+	     to update all pages at once, or just edit each page by hand.
+	     ============================================================ -->
+	<!-- BEGIN SHARED HEADER -->
+	<header class="site-header">
+		<div class="wrap site-header__inner">
+			<!-- Wordmark: the blue square, your name, and your role. -->
+			<a class="brand" href="{{PREFIX}}index.html">
+				<span class="brand__square" aria-hidden="true"></span>
+				<span class="brand__name">Ryan Sandell</span>
+				<span class="brand__role">Linguist</span>
+			</a>
+
+			<!-- Shown only on narrow screens; controlled by assets/site.js. -->
+			<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+
+			<!-- EDIT: main navigation. Add or remove <li> items here. -->
+			<nav class="nav" id="site-nav" aria-label="Main">
+				<ul class="nav__list">
+					<li class="nav__item">
+						<a class="nav__link" data-nav="home" href="{{PREFIX}}index.html">ABOUT ME</a>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="research" href="{{PREFIX}}research/index.html">RESEARCH</a>
+						<!-- EDIT: Research drop-down. Opens on hover and on keyboard focus. -->
+						<ul class="nav__submenu">
+							<li><a href="{{PREFIX}}phonology-morphology-interface/index.html">Phonology-Morphology Interface</a></li>
+							<li><a href="{{PREFIX}}computational-and-corpus-linguistics/index.html">Computational and Corpus Linguistics</a></li>
+							<li><a href="{{PREFIX}}data-homer/index.html">Data Homer</a></li>
+							<li><a href="{{PREFIX}}historical-and-indo-european-linguistics/index.html">Historical and Indo-European Linguistics</a></li>
+							<li><a href="{{PREFIX}}linguistics-of-indic-germanic-greek/index.html">Linguistics of Indic, Germanic, Greek</a></li>
+							<li><a href="{{PREFIX}}word-prosodic-systems/index.html">Word Prosodic Systems</a></li>
+						</ul>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="teaching" href="{{PREFIX}}teaching/index.html">TEACHING</a>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="contact" href="{{PREFIX}}contact/index.html">CONTACT</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<!-- END SHARED HEADER -->
