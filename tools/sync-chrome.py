@@ -49,12 +49,15 @@ def pages():
 
 
 def slug_and_prefix(path):
-    """'research/index.html' -> ('research', '../');  'index.html' -> ('home', '')."""
+    """'research/index.html' -> ('research', '../');  'index.html' -> ('home', '').
+    A nested page such as contact/appointments/index.html reports its TOP-LEVEL
+    folder ('contact'), so the right nav item is highlighted, and a prefix of
+    one '../' per folder depth."""
     rel = os.path.relpath(path, REPO)
     parts = rel.split(os.sep)[:-1]
     if not parts:
         return "home", ""
-    return parts[-1], "../" * len(parts)
+    return parts[0], "../" * len(parts)
 
 
 def render(template, prefix, slug):

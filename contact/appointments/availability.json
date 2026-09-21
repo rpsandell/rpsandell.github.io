@@ -1,0 +1,55 @@
+{
+	"_comment": [
+		"EDIT THIS FILE to control which appointments can be booked.",
+		"It is read by the booking page AND by the backend, so it is the single source of truth.",
+		"All times are local time in Europe/Berlin (CET in winter, CEST in summer - handled automatically).",
+		"Commit and push; the change is live within a minute or two.",
+		"",
+		"weekly    : recurring hours per weekday, as [start, end] windows (24h clock). Omit a day to offer nothing.",
+		"extra     : additional windows on specific dates, e.g. a one-off Friday.",
+		"blocked   : dates with no appointments at all (holidays, travel), overriding 'weekly'.",
+		"leadHours : nothing can be requested less than this many hours from now.",
+		"horizonDays: nothing can be requested more than this many days ahead.",
+		"holdHours : how long a pending (not yet approved) request keeps its slot before it is released.",
+		"topics    : what the requester chooses from. 'minutes' sets the appointment length for that topic;",
+		"            slots are offered at that spacing inside each window (a 45-min topic in 10:00-12:00 gives 10:00 and 10:45).",
+		"            'id' is stored with the booking - keep it stable once in use; change the labels freely."
+	],
+
+	"timezone": "Europe/Berlin",
+	"leadHours": 24,
+	"horizonDays": 28,
+	"holdHours": 72,
+
+	"weekly": {
+		"tue": [["10:00", "12:00"]],
+		"thu": [["14:00", "16:00"]]
+	},
+
+	"extra": {
+	},
+
+	"blocked": [
+		"2026-10-03",
+		"2026-11-01",
+		"2026-12-24",
+		"2026-12-25",
+		"2026-12-26",
+		"2026-12-31",
+		"2027-01-01",
+		"2027-01-06"
+	],
+
+	"formats": [
+		{ "id": "in-person", "de": "Persönlich (im Büro)", "en": "In person (at my office)" },
+		{ "id": "zoom",      "de": "Per Zoom",             "en": "Via Zoom" }
+	],
+
+	"topics": [
+		{ "id": "office-hours",  "minutes": 15, "de": "Kurze Frage (Sprechstunde)",                       "en": "Quick question (office hours)" },
+		{ "id": "thesis",        "minutes": 45, "de": "Beratung zu einer Abschlussarbeit (BA/MA)",       "en": "Thesis consultation (BA/MA)" },
+		{ "id": "exam",          "minutes": 30, "de": "Prüfungsberatung",                                 "en": "Examination advice" },
+		{ "id": "research",      "minutes": 30, "de": "Forschung und Zusammenarbeit",                    "en": "Research and collaboration" },
+		{ "id": "other",         "minutes": 30, "de": "Sonstiges",                                        "en": "Other" }
+	]
+}

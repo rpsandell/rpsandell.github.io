@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<!-- ============================================================
+	     Anfrage eingegangen | Ryan Sandell
+	     --------------------------------------------------------
+	     Appointment booking. The FORM STRUCTURE is in this file; every
+	     piece of visible text is in assets/appointments.js (I18N table,
+	     German + English) so the language can be switched. Available
+	     hours, topics and rules are in availability.json next to this
+	     file. Styling: assets/appointments.css on top of site.css.
+	     ============================================================ -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Anfrage eingegangen | Ryan Sandell</title>
+	<meta name="description" content="Termin mit Ryan Sandell vereinbaren / Book an appointment with Ryan Sandell.">
+	<meta name="robots" content="noindex">
+
+	<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../../../assets/fonts.css">
+	<link rel="stylesheet" href="../../../assets/site.css">
+	<link rel="stylesheet" href="../../../assets/appointments.css">
+</head>
+
+<body>
+	<!-- Lets keyboard users jump past the navigation. -->
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<!-- ============================================================
+	     SHARED HEADER  —  identical on every page.
+	     Edit tools/_chrome/header.html and run tools/sync-chrome.py
+	     to update all pages at once, or just edit each page by hand.
+	     ============================================================ -->
+	<!-- BEGIN SHARED HEADER -->
+	<header class="site-header">
+		<div class="wrap site-header__inner">
+			<!-- Wordmark: the blue square, your name, and your role. -->
+			<a class="brand" href="../../../index.html">
+				<span class="brand__square" aria-hidden="true"></span>
+				<span class="brand__name">Ryan Sandell</span>
+				<span class="brand__role">Linguist</span>
+			</a>
+
+			<!-- Shown only on narrow screens; controlled by assets/site.js. -->
+			<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+
+			<!-- EDIT: main navigation. Add or remove <li> items here. -->
+			<nav class="nav" id="site-nav" aria-label="Main">
+				<ul class="nav__list">
+					<li class="nav__item">
+						<a class="nav__link" data-nav="home" href="../../../index.html">ABOUT ME</a>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="research" href="../../../research/index.html">RESEARCH</a>
+						<!-- EDIT: Research drop-down. Opens on hover and on keyboard focus. -->
+						<ul class="nav__submenu">
+							<li><a href="../../../phonology-morphology-interface/index.html">Phonology-Morphology Interface</a></li>
+							<li><a href="../../../computational-and-corpus-linguistics/index.html">Computational and Corpus Linguistics</a></li>
+							<li><a href="../../../data-homer/index.html">Data Homer</a></li>
+							<li><a href="../../../historical-and-indo-european-linguistics/index.html">Historical and Indo-European Linguistics</a></li>
+							<li><a href="../../../linguistics-of-indic-germanic-greek/index.html">Linguistics of Indic, Germanic, Greek</a></li>
+							<li><a href="../../../word-prosodic-systems/index.html">Word Prosodic Systems</a></li>
+						</ul>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="teaching" href="../../../teaching/index.html">TEACHING</a>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="contact" aria-current="page" href="../../../contact/index.html">CONTACT</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<!-- END SHARED HEADER -->
+
+	<!-- ============================================================
+	     PAGE CONTENT  —  shown after a request has been sent.
+	     EDIT: both language versions are below; the script shows one.
+	     ============================================================ -->
+	<main id="main">
+		<section class="wrap page-head">
+			<div class="notice-card" lang="de" data-lang-block="de">
+				<h1>Vielen Dank – Ihre Anfrage ist eingegangen.</h1>
+				<p>Ihr Terminwunsch wartet nun auf meine Bestätigung. So geht es weiter:</p>
+				<ol>
+					<li>Ich prüfe die Anfrage in der Regel innerhalb von zwei Werktagen.</li>
+					<li>Sie erhalten eine E-Mail, sobald der Termin bestätigt ist – oder, falls er nicht möglich ist, eine kurze Rückmeldung mit dem Grund.</li>
+					<li>Die gewünschte Zeit ist bis dahin für Sie reserviert.</li>
+				</ol>
+				<p>Bei Fragen erreichen Sie mich unter <a href="mailto:ryan.sandell@lrz.uni-muenchen.de">ryan.sandell@lrz.uni-muenchen.de</a>.</p>
+				<p><a class="btn btn--outline" href="../../../index.html">Zur Startseite</a></p>
+			</div>
+
+			<div class="notice-card" lang="en" data-lang-block="en" hidden>
+				<h1>Thank you – your request has been received.</h1>
+				<p>Your appointment request is now awaiting my approval. What happens next:</p>
+				<ol>
+					<li>I usually review requests within two working days.</li>
+					<li>You will receive an email as soon as the appointment is confirmed – or, if it isn't possible, a short reply with the reason.</li>
+					<li>The requested time is reserved for you until then.</li>
+				</ol>
+				<p>If you have questions, you can reach me at <a href="mailto:ryan.sandell@lrz.uni-muenchen.de">ryan.sandell@lrz.uni-muenchen.de</a>.</p>
+				<p><a class="btn btn--outline" href="../../../index.html">Back to the homepage</a></p>
+			</div>
+		</section>
+	</main>
+	<!-- ============================================================
+	     SHARED FOOTER  —  identical on every page.
+	     ============================================================ -->
+	<!-- BEGIN SHARED FOOTER -->
+	<footer class="site-footer">
+		<div class="wrap site-footer__inner">
+			<!-- EDIT: copyright line. -->
+			<p>&copy; 2026 Ryan Sandell</p>
+
+			<div class="site-footer__group">
+				<span class="site-footer__label">Write</span>
+				<a href="mailto:ryan.sandell@gmail.com">send an email</a>
+			</div>
+
+			<div class="site-footer__group">
+				<span class="site-footer__label">Follow</span>
+				<ul class="social">
+					<li>
+						<a href="https://scholar.google.com/citations?user=NBH22UYAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener">
+							<img src="../../../assets/img/img_bd6e3752092a.png" alt="Google Scholar" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+					<li>
+						<a href="https://lmu-munich.academia.edu/RyanSandell" target="_blank" rel="noopener">
+							<img src="../../../assets/img/img_cc4460ab9672.png" alt="Academia.edu" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/rpsandell" target="_blank" rel="noopener">
+							<img src="../../../assets/img/img_b48756af7325.png" alt="GitHub" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+					<li>
+						<a href="https://www.linkedin.com/in/ryan-sandell-808913a1/" target="_blank" rel="noopener">
+							<img src="../../../assets/img/img_cec87551182e.png" alt="LinkedIn" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<!-- END SHARED FOOTER -->
+
+	<script src="../../../assets/site.js"></script>
+	<script>
+		/* Show the German or English block, matching the booking page's choice. */
+		(function(){var q=new URLSearchParams(location.search).get("lang"),l=q||(function(){try{return localStorage.getItem("lang")}catch(e){return null}})()||"de";
+		document.documentElement.lang=l;document.querySelectorAll("[data-lang-block]").forEach(function(b){b.hidden=b.dataset.langBlock!==l});
+		document.title=(l==="en"?"Request received":"Anfrage eingegangen")+" | Ryan Sandell";})();
+	</script>
+</body>
+
+</html>

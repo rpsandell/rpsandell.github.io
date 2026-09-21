@@ -42,7 +42,7 @@ SOCIAL = [
 ]
 
 EMAIL = "ryan.sandell@gmail.com"
-COPYRIGHT = "&copy; 2024 Ryan Sandell"
+COPYRIGHT = "&copy; 2026 Ryan Sandell"
 
 
 def link(prefix, slug):

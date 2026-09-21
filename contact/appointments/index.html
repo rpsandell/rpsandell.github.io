@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<!-- ============================================================
+	     Termin vereinbaren | Ryan Sandell
+	     --------------------------------------------------------
+	     Appointment booking. The FORM STRUCTURE is in this file; every
+	     piece of visible text is in assets/appointments.js (I18N table,
+	     German + English) so the language can be switched. Available
+	     hours, topics and rules are in availability.json next to this
+	     file. Styling: assets/appointments.css on top of site.css.
+	     ============================================================ -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Termin vereinbaren | Ryan Sandell</title>
+	<meta name="description" content="Termin mit Ryan Sandell vereinbaren / Book an appointment with Ryan Sandell.">
+	<meta name="robots" content="noindex">
+
+	<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="../../assets/fonts.css">
+	<link rel="stylesheet" href="../../assets/site.css">
+	<link rel="stylesheet" href="../../assets/appointments.css">
+</head>
+
+<body>
+	<!-- Lets keyboard users jump past the navigation. -->
+	<a class="skip-link" href="#main">Skip to content</a>
+
+	<!-- ============================================================
+	     SHARED HEADER  —  identical on every page.
+	     Edit tools/_chrome/header.html and run tools/sync-chrome.py
+	     to update all pages at once, or just edit each page by hand.
+	     ============================================================ -->
+	<!-- BEGIN SHARED HEADER -->
+	<header class="site-header">
+		<div class="wrap site-header__inner">
+			<!-- Wordmark: the blue square, your name, and your role. -->
+			<a class="brand" href="../../index.html">
+				<span class="brand__square" aria-hidden="true"></span>
+				<span class="brand__name">Ryan Sandell</span>
+				<span class="brand__role">Linguist</span>
+			</a>
+
+			<!-- Shown only on narrow screens; controlled by assets/site.js. -->
+			<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+
+			<!-- EDIT: main navigation. Add or remove <li> items here. -->
+			<nav class="nav" id="site-nav" aria-label="Main">
+				<ul class="nav__list">
+					<li class="nav__item">
+						<a class="nav__link" data-nav="home" href="../../index.html">ABOUT ME</a>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="research" href="../../research/index.html">RESEARCH</a>
+						<!-- EDIT: Research drop-down. Opens on hover and on keyboard focus. -->
+						<ul class="nav__submenu">
+							<li><a href="../../phonology-morphology-interface/index.html">Phonology-Morphology Interface</a></li>
+							<li><a href="../../computational-and-corpus-linguistics/index.html">Computational and Corpus Linguistics</a></li>
+							<li><a href="../../data-homer/index.html">Data Homer</a></li>
+							<li><a href="../../historical-and-indo-european-linguistics/index.html">Historical and Indo-European Linguistics</a></li>
+							<li><a href="../../linguistics-of-indic-germanic-greek/index.html">Linguistics of Indic, Germanic, Greek</a></li>
+							<li><a href="../../word-prosodic-systems/index.html">Word Prosodic Systems</a></li>
+						</ul>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="teaching" href="../../teaching/index.html">TEACHING</a>
+					</li>
+					<li class="nav__item">
+						<a class="nav__link" data-nav="contact" aria-current="page" href="../../contact/index.html">CONTACT</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<!-- END SHARED HEADER -->
+
+	<!-- ============================================================
+	     PAGE CONTENT
+	     Text is NOT edited here: see the I18N table in
+	     assets/appointments.js. Each data-i18n="key" below is filled
+	     from that table in the chosen language.
+	     ============================================================ -->
+	<main id="main">
+		<section class="wrap page-head">
+			<!-- Language switch. German is the default; the choice is remembered. -->
+			<div class="lang-toggle" role="group" aria-label="Sprache / Language">
+				<button type="button" data-lang="de" aria-pressed="true">DE</button>
+				<button type="button" data-lang="en" aria-pressed="false">EN</button>
+			</div>
+			<h1 data-i18n="title">Termin vereinbaren</h1>
+			<p data-i18n="intro"></p>
+		</section>
+
+		<section class="wrap section--tight">
+			<!-- Shown only while data-api on the form below is empty. -->
+			<div class="demo-banner" id="demo-banner" hidden><strong data-i18n="demo"></strong></div>
+			<p id="load-error" class="error" style="display:block" hidden>availability.json konnte nicht geladen werden / could not load availability.json.</p>
+
+			<!-- EDIT: data-api = the Cloudflare Worker URL once it exists, e.g.
+			     data-api="https://appointments.rpsandell.workers.dev". Empty = demo.
+			     data-turnstile = Cloudflare Turnstile site key (bot protection). -->
+			<form id="booking" class="booking" novalidate hidden data-api="" data-turnstile="">
+
+				<!-- ---------- Step 1: topic ---------- -->
+				<section class="step">
+					<h2 class="step__title"><span class="step__num">1</span> <span data-i18n="step_topic"></span></h2>
+					<div class="field" data-field="topic">
+						<label for="topic" data-i18n="topic_label"></label>
+						<select id="topic" name="topic" class="select" required></select>
+						<p class="error"></p>
+					</div>
+				</section>
+
+				<!-- ---------- Step 2: in person or Zoom ---------- -->
+				<section class="step">
+					<h2 class="step__title"><span class="step__num">2</span> <span data-i18n="step_format"></span></h2>
+					<div class="field" data-field="format">
+						<span class="label" data-i18n="format_label"></span>
+						<ul class="choice-list" id="formats"></ul>
+						<p class="error"></p>
+					</div>
+				</section>
+
+				<!-- ---------- Step 3: calendar + time ---------- -->
+				<section class="step">
+					<h2 class="step__title"><span class="step__num">3</span> <span data-i18n="step_when"></span></h2>
+					<p class="step__hint" id="cal-hint"></p>
+					<div class="field" data-field="slot">
+						<div class="calendar">
+							<div class="calendar__head">
+								<button type="button" class="calendar__nav" id="cal-prev">&lsaquo;</button>
+								<span class="calendar__month" id="cal-month" aria-live="polite"></span>
+								<button type="button" class="calendar__nav" id="cal-next">&rsaquo;</button>
+							</div>
+							<div class="calendar__grid" id="cal-grid" role="grid"></div>
+						</div>
+						<p class="step__hint" id="slots-head" hidden style="margin-top:1.5rem"></p>
+						<div class="slots" id="slots" aria-live="polite"></div>
+						<p class="tz-note" data-i18n="tz"></p>
+						<p class="error"></p>
+					</div>
+				</section>
+
+				<!-- ---------- Step 4: contact details, message, files ---------- -->
+				<section class="step">
+					<h2 class="step__title"><span class="step__num">4</span> <span data-i18n="step_details"></span></h2>
+					<div class="field" data-field="name">
+						<label for="name" data-i18n="name"></label>
+						<input id="name" name="name" class="input" type="text" autocomplete="name" required>
+						<p class="error"></p>
+					</div>
+					<div class="field" data-field="email">
+						<label for="email" data-i18n="email"></label>
+						<input id="email" name="email" class="input" type="email" autocomplete="email" required>
+						<p class="step__hint" style="margin:0.3rem 0 0" data-i18n="email_hint"></p>
+						<p class="error"></p>
+					</div>
+					<div class="field" data-field="message">
+						<label for="message"><span data-i18n="message"></span> <span class="optional" data-i18n="optional"></span></label>
+						<textarea id="message" name="message" class="textarea" data-i18n-placeholder="message_hint"></textarea>
+					</div>
+					<div class="field" data-field="files">
+						<label for="files"><span data-i18n="files"></span> <span class="optional" data-i18n="optional"></span></label>
+						<input id="files" name="files" type="file" accept="application/pdf,.pdf" multiple>
+						<p class="step__hint" style="margin:0.3rem 0 0" data-i18n="files_hint"></p>
+						<ul class="file-list" id="file-list"></ul>
+						<p class="error"></p>
+					</div>
+				</section>
+
+				<!-- ---------- Step 5: summary, consent, submit ---------- -->
+				<section class="step">
+					<h2 class="step__title"><span class="step__num">5</span> <span data-i18n="step_confirm"></span></h2>
+					<div class="summary" id="summary" aria-live="polite"></div>
+
+					<div class="field" data-field="consent">
+						<div class="consent">
+							<input id="consent" name="consent" type="checkbox" required>
+							<label for="consent" data-i18n="consent"></label>
+						</div>
+						<p class="error"></p>
+					</div>
+
+					<!-- EDIT: privacy notice wording is in the I18N table (privacy_h, privacy_p1, privacy_p2). -->
+					<div class="privacy-note">
+						<p><strong data-i18n="privacy_h"></strong></p>
+						<p data-i18n="privacy_p1"></p>
+						<p data-i18n="privacy_p2"></p>
+					</div>
+
+					<!-- Cloudflare Turnstile renders here when data-turnstile is set. -->
+					<div class="cf-turnstile" id="turnstile"></div>
+
+					<button type="submit" class="btn btn--solid" id="submit" data-i18n="submit"></button>
+					<p class="submit-status" id="submit-status" aria-live="polite"></p>
+				</section>
+
+			</form>
+		</section>
+	</main>
+	<!-- ============================================================
+	     SHARED FOOTER  —  identical on every page.
+	     ============================================================ -->
+	<!-- BEGIN SHARED FOOTER -->
+	<footer class="site-footer">
+		<div class="wrap site-footer__inner">
+			<!-- EDIT: copyright line. -->
+			<p>&copy; 2026 Ryan Sandell</p>
+
+			<div class="site-footer__group">
+				<span class="site-footer__label">Write</span>
+				<a href="mailto:ryan.sandell@gmail.com">send an email</a>
+			</div>
+
+			<div class="site-footer__group">
+				<span class="site-footer__label">Follow</span>
+				<ul class="social">
+					<li>
+						<a href="https://scholar.google.com/citations?user=NBH22UYAAAAJ&amp;hl=en&amp;oi=ao" target="_blank" rel="noopener">
+							<img src="../../assets/img/img_bd6e3752092a.png" alt="Google Scholar" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+					<li>
+						<a href="https://lmu-munich.academia.edu/RyanSandell" target="_blank" rel="noopener">
+							<img src="../../assets/img/img_cc4460ab9672.png" alt="Academia.edu" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/rpsandell" target="_blank" rel="noopener">
+							<img src="../../assets/img/img_b48756af7325.png" alt="GitHub" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+					<li>
+						<a href="https://www.linkedin.com/in/ryan-sandell-808913a1/" target="_blank" rel="noopener">
+							<img src="../../assets/img/img_cec87551182e.png" alt="LinkedIn" width="21" height="21" loading="lazy">
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<!-- END SHARED FOOTER -->
+
+	<script src="../../assets/site.js"></script>
+	<script src="../../assets/appointments.js"></script>
+</body>
+
+</html>

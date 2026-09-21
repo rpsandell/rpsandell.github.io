@@ -4,3 +4,6 @@
 # Python bytecode from tools/
 __pycache__/
 *.pyc
+
+# Local preview config for the Claude desktop app
+.claude/launch.json
