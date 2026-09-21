@@ -1,7 +1,7 @@
 {
 	"_comment": [
 		"EDIT THIS FILE to control which appointments can be booked.",
-		"It is read by the booking page AND by the backend, so it is the single source of truth.",
+		"It is read by the booking page AND by the backend on the LRZ site, so it is the single source of truth.",
 		"All times are local time in Europe/Berlin (CET in winter, CEST in summer - handled automatically).",
 		"Commit and push; the change is live within a minute or two.",
 		"",

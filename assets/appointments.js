@@ -8,10 +8,10 @@
      4. Validates the form and sends the request to the backend.
 
    Configuration is read from data-* attributes on <form id="booking">:
-     data-api        base URL of the Cloudflare Worker. Leave EMPTY for demo
-                     mode: no network calls, a few pretend bookings, and
-                     "Submit" just shows the confirmation page.
-     data-turnstile  Cloudflare Turnstile site key (bot protection). Optional.
+     data-api        base URL of the backend's api/ folder on the LRZ site
+                     (see BACKEND-PLAN.md). Leave EMPTY for demo mode: no
+                     network calls, a few pretend bookings, and "Submit" just
+                     shows the confirmation page.
 
    All user-visible text lives in the I18N table below — German first, then
    English. To change wording, edit it there; the HTML only carries keys.
@@ -76,8 +76,9 @@
 			prev_month:     "Vorheriger Monat",
 			next_month:     "Nächster Monat",
 			privacy_h:      "Hinweise zum Datenschutz",
-			privacy_p1:     "Zur Bearbeitung Ihrer Terminanfrage werden Name, E-Mail-Adresse, das gewählte Thema, Datum und Uhrzeit sowie – falls angegeben – Ihre Nachricht und angehängte Dokumente gespeichert (Art. 6 Abs. 1 lit. b DSGVO). Die Daten werden auf Servern von Cloudflare verarbeitet und ausschließlich zur Vereinbarung und Durchführung des Termins verwendet.",
-			privacy_p2:     "Die Daten werden 30 Tage nach dem Termin – bzw. nach Ablehnung der Anfrage – automatisch gelöscht. Sie können jederzeit Auskunft oder Löschung verlangen; schreiben Sie dazu bitte an ryan.sandell@lrz.uni-muenchen.de."
+			privacy_p1:     "Zur Bearbeitung Ihrer Terminanfrage werden Name, E-Mail-Adresse, das gewählte Thema, Datum und Uhrzeit sowie – falls angegeben – Ihre Nachricht und angehängte Dokumente gespeichert (Art. 6 Abs. 1 lit. b DSGVO). Die Verarbeitung erfolgt ausschließlich auf Systemen des Leibniz-Rechenzentrums (LRZ) im Münchner Wissenschaftsnetz; eine Weitergabe an Dritte findet nicht statt. Die Daten dienen allein der Vereinbarung und Durchführung des Termins.",
+			privacy_p2:     "Die Daten werden 30 Tage nach dem Termin – bzw. nach Ablehnung oder Verfall der Anfrage – automatisch gelöscht. Sie können jederzeit Auskunft oder Löschung verlangen; schreiben Sie dazu bitte an ryan.sandell@lrz.uni-muenchen.de.",
+			privacy_p3:     "Bitte geben Sie in der Nachricht und in Anhängen keine Gesundheitsdaten oder andere besonders schutzwürdigen Angaben an; solche Anliegen besprechen wir besser im Gespräch."
 		},
 		en: {
 			title:          "Book an appointment",
@@ -130,8 +131,9 @@
 			prev_month:     "Previous month",
 			next_month:     "Next month",
 			privacy_h:      "Privacy notice",
-			privacy_p1:     "To handle your appointment request we store your name, email address, the chosen topic, date and time, and — if provided — your message and attached documents (Art. 6(1)(b) GDPR). The data is processed on Cloudflare servers and used solely to arrange and hold the appointment.",
-			privacy_p2:     "The data is deleted automatically 30 days after the appointment, or after the request is declined. You may request access or deletion at any time by writing to ryan.sandell@lrz.uni-muenchen.de."
+			privacy_p1:     "To handle your appointment request we store your name, email address, the chosen topic, date and time, and — if provided — your message and attached documents (Art. 6(1)(b) GDPR). Processing takes place solely on systems of the Leibniz Supercomputing Centre (LRZ) within the Munich Scientific Network; nothing is passed to third parties. The data is used only to arrange and hold the appointment.",
+			privacy_p2:     "The data is deleted automatically 30 days after the appointment, or after the request is declined or lapses. You may request access or deletion at any time by writing to ryan.sandell@lrz.uni-muenchen.de.",
+			privacy_p3:     "Please do not include health information or other especially sensitive details in your message or attachments; such matters are better discussed in person."
 		}
 	};
 
@@ -521,8 +523,7 @@
 		fd.append("email", $("#email").value.trim());
 		fd.append("message", $("#message").value.trim());
 		state.files.forEach(function (f) { fd.append("files", f.file, f.file.name); });
-		var ts = $('[name="cf-turnstile-response"]');
-		if (ts) { fd.append("turnstile", ts.value); }
+		fd.append("website", $("#website").value);              // honeypot: humans leave it empty
 
 		var done = function () { location.href = "submitted/index.html?lang=" + lang; };
 

@@ -98,10 +98,10 @@
 			<div class="demo-banner" id="demo-banner" hidden><strong data-i18n="demo"></strong></div>
 			<p id="load-error" class="error" style="display:block" hidden>availability.json konnte nicht geladen werden / could not load availability.json.</p>
 
-			<!-- EDIT: data-api = the Cloudflare Worker URL once it exists, e.g.
-			     data-api="https://appointments.rpsandell.workers.dev". Empty = demo.
-			     data-turnstile = Cloudflare Turnstile site key (bot protection). -->
-			<form id="booking" class="booking" novalidate hidden data-api="" data-turnstile="">
+			<!-- EDIT: data-api = the backend's api/ URL on the LRZ site once it exists,
+			     e.g. data-api="https://termine.example.lmu.de/api". Empty = demo mode.
+			     See BACKEND-PLAN.md in this folder. -->
+			<form id="booking" class="booking" novalidate hidden data-api="">
 
 				<!-- ---------- Step 1: topic ---------- -->
 				<section class="step">
@@ -183,15 +183,20 @@
 						<p class="error"></p>
 					</div>
 
-					<!-- EDIT: privacy notice wording is in the I18N table (privacy_h, privacy_p1, privacy_p2). -->
+					<!-- EDIT: privacy notice wording is in the I18N table (privacy_h, privacy_p1 … privacy_p3). -->
 					<div class="privacy-note">
 						<p><strong data-i18n="privacy_h"></strong></p>
 						<p data-i18n="privacy_p1"></p>
 						<p data-i18n="privacy_p2"></p>
+						<p data-i18n="privacy_p3"></p>
 					</div>
 
-					<!-- Cloudflare Turnstile renders here when data-turnstile is set. -->
-					<div class="cf-turnstile" id="turnstile"></div>
+					<!-- Honeypot: invisible to people, filled in by naive bots; the backend
+					     rejects any request where it is not empty. Do not remove. -->
+					<div class="visually-hidden" aria-hidden="true">
+						<label for="website">Website</label>
+						<input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+					</div>
 
 					<button type="submit" class="btn btn--solid" id="submit" data-i18n="submit"></button>
 					<p class="submit-status" id="submit-status" aria-live="polite"></p>
